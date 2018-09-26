@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Online">
+
+	<!-- 查找在线实时数据 -->
+	<select id="queryLatestData" parameterType="java.util.HashMap"
+		resultMap="queryLatestDataResult">
+		SELECT top 1
+			VDATATEXT,
+			CHANNELGLOBALINDEX,
+			STIME,
+			SAMPLEPOINT,
+			recordlab
+		FROM
+			${table}
+		WHERE
+			CHANNELGLOBALINDEX = #{channelglobalindex}
+		ORDER BY
+			STIME desc;
+	</select>
+	<resultMap type="java.util.HashMap" id="queryLatestDataResult">
+		<result property="channelglobalindex" column="CHANNELGLOBALINDEX" />
+		<result property="stime" column="STIME" />
+		<result property="samplepoint" column="SAMPLEPOINT" />
+		<result property="vdatatext" column="VDATATEXT" />
+		<result property="recordlab" column="RECORDLAB" />
+	</resultMap>
+	
+</mapper>
